@@ -1,0 +1,35 @@
+{
+  "name": "node-project",
+  "version": "1.0.0",
+  "description": "Basic node js project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon server.js",
+    "start":"node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ratneshgujarathi/node-js-project.git"
+  },
+  "author": "ratnesh",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ratneshgujarathi/node-js-project/issues"
+  },
+  "homepage": "https://github.com/ratneshgujarathi/node-js-project#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "express-async-handler": "^1.2.0",
+    "firebase-admin": "^11.5.0",
+    "jsonwebtoken": "^9.0.0",
+    "mongodb": "^5.0.1",
+    "mongoose": "^6.9.2",
+    "multer": "^1.4.5-lts.1",
+    "nodemon": "^2.0.20",
+    "uuid-v4": "^0.1.0"
+  }
+}
