@@ -7,6 +7,7 @@ class BaseConfig {
   SERVER_PROTOCOL = 'http';
   SERVER_IP = '127.0.0.1';
   SERVER_PORT = 8000;
+  SECRET_KEY = process.env.SECRET_KEY;
 }
 
 class DevelopmentConfig extends BaseConfig {
