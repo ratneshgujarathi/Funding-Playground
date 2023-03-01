@@ -8,9 +8,6 @@ class SuccessResponse {
     };
     this.status_code = status_code;
   }
-  get (){
-    return [this.status_code, this.response]
-  }
 }
 
 class ErrorResponse {
@@ -35,9 +32,6 @@ class ErrorResponse {
         error,
       };
       this.status_code = error_format()[1];
-    }
-    get (){
-      return [this.status_code, this.response];
     }
   }
 

@@ -10,7 +10,7 @@ const registerUser = asyncHandler(async (req, res) => {
         if (!fullName || !email || !password){
             throw new Error('INVALID_FIELD')
         }
-        if (password.length <= 8){
+        if (password.length < 8){
             throw new Error('INCORRECT_PASSWORD_LENGTH')
         }
         const userExists = await db.collection('Users').findOne({email});
@@ -21,12 +21,12 @@ const registerUser = asyncHandler(async (req, res) => {
         const hashedPassword = authUtils.generateHash(password);
         const result = await db.collection('Users').insertOne({'full_name': fullName, "email": email, 'password': hashedPassword});
         const token = authUtils.generateToken({'_id': result.insertedId, 'email': email, 'password': hashedPassword});
-        const obj = new SuccessResponse({"result": {'token': token }})
-        res.status(obj.status_code).send(obj.response);
+        const {status_code, response} = new SuccessResponse({"result": {'token': token }})
+        res.status(status_code).send(response);
         
     } catch (err) {
-        const obj  = new ErrorResponse(err);
-        res.status(obj.status_code).send(obj.response);
+        const {status_code, response}  = new ErrorResponse(err);
+        res.status(status_code).send(response);
     }
 });
 
@@ -37,11 +37,11 @@ const getUser = asyncHandler(async (req, res) => {
         if(!user){
             throw new Error('NOT_FOUND')
         }
-        const obj = new SuccessResponse({'users': user });
-        res.status(obj.status_code).send(obj.response);
+        const {status_code, response} = new SuccessResponse({'users': user });
+        res.status(status_code).send(response);
     } catch (err) {
-        const obj  = new ErrorResponse(err);
-        res.status(obj.status_code).send(obj.response);
+        const {status_code, response}  = new ErrorResponse(err);
+        res.status(status_code).send(response);
     }
 });
 
@@ -51,11 +51,11 @@ const getUsers = asyncHandler(async (req, res) => {
         .project({'password': 0})
         .sort({'full_name': 1})
         .allowDiskUse(true).toArray();
-        const obj = new SuccessResponse({'users': userList });
-        res.status(obj.status_code).send(obj.response);
+        const {status_code, response} = new SuccessResponse({'users': userList });
+        res.status(status_code).send(response);
     } catch (err) {
-        const obj  = new ErrorResponse(err);
-        res.status(obj.status_code).send(obj.response);
+        const {status_code, response}  = new ErrorResponse(err);
+        res.status(status_code).send(response);
     }
 });
 
@@ -73,11 +73,11 @@ const updateUser = asyncHandler(async (req, res) => {
         }
         await db.collection('Users').findOneAndUpdate({'_id': new ObjectId(id)}, 
         {'$set': updateQuery});
-        const obj = new SuccessResponse('success');
-        res.status(obj.status_code).send(obj.response);
+        const {status_code, response} = new SuccessResponse('success');
+        res.status(status_code).send(response);
     } catch (err) {
-        const obj  = new ErrorResponse(err);
-        res.status(obj.status_code).send(obj.response);
+        const {status_code, response}  = new ErrorResponse(err);
+        res.status(status_code).send(response);
     }
 });
 
@@ -85,11 +85,11 @@ const deleteUser = asyncHandler(async (req, res) => {
     const id = req.params.id;
     try {
         await db.collection('Users').deleteOne({'_id': new ObjectId(id)});
-        const obj = new SuccessResponse('success');
-        res.status(obj.status_code).send(obj.response);
+        const {status_code, response} = new SuccessResponse('success');
+        res.status(status_code).send(response);
     } catch (err) {
-        const obj  = new ErrorResponse(err);
-        res.status(obj.status_code).send(obj.response);
+        const {status_code, response}  = new ErrorResponse(err);
+        res.status(status_code).send(response);
     }
 });
 
